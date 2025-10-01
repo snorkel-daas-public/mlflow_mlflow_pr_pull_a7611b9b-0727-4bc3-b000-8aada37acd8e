@@ -296,14 +296,7 @@ class InstructionsJudge(Judge):
             if var_name in template_values:
                 user_message_parts.append(f"{var_name}: {template_values[var_name]}")
 
-        # Some model providers (like Anthropic) require a user message
-        # (i.e. a single-message chat history with role 'system' is not supported),
-        # *and* they require the message to have non-empty content (empty string is not allowed)
-        return (
-            "\n".join(user_message_parts)
-            if user_message_parts
-            else "Follow the instructions from the first message"
-        )
+        return "\n".join(user_message_parts) if user_message_parts else ""
 
     def _build_template_values(
         self, inputs: Any | None, outputs: Any | None, expectations: dict[str, Any] | None
